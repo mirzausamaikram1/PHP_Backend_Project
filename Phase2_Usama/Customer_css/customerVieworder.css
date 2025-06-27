@@ -6,7 +6,7 @@ body {
 }
 
 .sidebar {
-  width: 200px;
+  width: 240px; /* Increased sidebar width */
   height: 100vh;
   position: fixed;
   background-color: #333;
@@ -16,9 +16,9 @@ body {
 .sidebar a {
   display: block;
   color: white;
-  padding: 15px;
+  padding: 20px; /* Increased padding */
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px; /* Increased font size */
 }
 
 .sidebar a:hover {
@@ -26,27 +26,30 @@ body {
 }
 
 .content {
-  margin-left: 220px;
+  margin-left: 260px; /* Adjusted for larger sidebar */
   padding: 20px;
 }
 
 h2 {
   color: #333;
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Increased margin */
+  font-size: 24px; /* Increased font size */
 }
 
 .sort-options {
-  margin-bottom: 20px;
+  margin-bottom: 30px; /* Increased margin */
 }
 
 .sort-options label {
-  margin-right: 10px;
+  margin-right: 15px; /* Increased margin */
   font-weight: bold;
+  font-size: 18px; /* Increased font size */
 }
 
 .sort-options select {
-  padding: 5px;
-  margin-right: 10px;
+  padding: 10px; /* Increased padding */
+  margin-right: 15px; /* Increased margin */
+  font-size: 16px; /* Increased font size */
 }
 
 table {
@@ -56,7 +59,7 @@ table {
 }
 
 th, td {
-  padding: 10px;
+  padding: 15px; /* Increased padding */
   text-align: left;
   border: 1px solid #ddd;
 }
@@ -64,6 +67,7 @@ th, td {
 th {
   background-color: #4CAF50;
   color: white;
+  font-size: 18px; /* Increased font size */
 }
 
 tr:nth-child(even) {
@@ -72,4 +76,27 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: #ddd;
+}
+
+.product-item {
+  background-color: white;
+  padding: 20px; /* Increased padding */
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Increased shadow */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 600px; /* Further increased height */
+  width: 400px; /* Further increased width */
+}
+
+.product-item img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  max-height: 220px; /* Adjusted image height to fit bigger item */
+  object-fit: contain; /* Ensures images fit well */
 }

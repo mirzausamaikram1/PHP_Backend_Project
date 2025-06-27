@@ -63,7 +63,7 @@ $customer = mysqli_fetch_assoc($customer_result);
     </div>
     <div class="form-group">
       <label>New Password:</label>
-      <input type="text" name="cpassword" value="<?php echo $customer['cpassword']; ?>" required>
+      <input type="password" name="cpassword" value="<?php echo $customer['cpassword']; ?>" required>
     </div>
     <div class="form-group">
       <label>Contact Number:</label>
