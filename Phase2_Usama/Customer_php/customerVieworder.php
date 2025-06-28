@@ -4,9 +4,9 @@ session_start();
 echo "Session CID: " . (isset($_SESSION['cid']) ? $_SESSION['cid'] : "Not set") . "<br>"; // Debug
 echo "Session Role: " . (isset($_SESSION['role']) ? $_SESSION['role'] : "Not set") . "<br>"; // Debug
 if (!isset($_SESSION['cid']) || $_SESSION['role'] !== 'customer') {
-  echo "Redirecting due to session issue...<br>";
-  header("Location: ../General/login.php");
-  exit;
+    echo "Redirecting due to session issue...<br>";
+    header("Location: ../General/login.php");
+    exit;
 }
 
 $cid = $_SESSION['cid'];
@@ -18,10 +18,10 @@ $valid_columns = ['oid', 'odate', 'pid', 'oqty', 'ocost', 'cid', 'odeliverdate',
 $valid_orders = ['ASC', 'DESC'];
 
 if (!in_array($sort_column, $valid_columns)) {
-  $sort_column = 'oid';
+    $sort_column = 'oid';
 }
 if (!in_array($sort_order, $valid_orders)) {
-  $sort_order = 'ASC';
+    $sort_order = 'ASC';
 }
 
 // Fetch orders for the logged-in customer
@@ -31,7 +31,7 @@ $sql = "SELECT oid, odate, pid, oqty, ocost, cid, odeliverdate, ostatus
         ORDER BY $sort_column $sort_order";
 $result = mysqli_query($conn, $sql);
 if (!$result) {
-  die("Error fetching orders: " . mysqli_error($conn));
+    die("Error fetching orders: " . mysqli_error($conn));
 }
 
 echo "<!DOCTYPE html>
@@ -80,8 +80,22 @@ echo "<!DOCTYPE html>
         </thead>
         <tbody>";
 if (mysqli_num_rows($result) > 0) {
-  while ($row = mysqli_fetch_assoc($result)) {
-    echo "<tr>
+    while ($row = mysqli_fetch_assoc($result)) {
+        $statusText = '';
+        switch ($row['ostatus']) {
+            case 1:
+                $statusText = 'Pending';
+                break;
+            case 2:
+                $statusText = 'Confirm';
+                break;
+            case 3:
+                $statusText = 'Cancel';
+                break;
+            default:
+                $statusText = 'Unknown';
+        }
+        echo "<tr>
                 <td>{$row['oid']}</td>
                 <td>{$row['odate']}</td>
                 <td>{$row['pid']}</td>
@@ -89,11 +103,11 @@ if (mysqli_num_rows($result) > 0) {
                 <td>{$row['ocost']}</td>
                 <td>{$row['cid']}</td>
                 <td>{$row['odeliverdate']}</td>
-                <td>{$row['ostatus']}</td>
+                <td>$statusText</td>
             </tr>";
-  }
+    }
 } else {
-  echo "<tr><td colspan=\"8\">No orders found.</td></tr>";
+    echo "<tr><td colspan=\"8\">No orders found.</td></tr>";
 }
 echo "</tbody>
     </table>

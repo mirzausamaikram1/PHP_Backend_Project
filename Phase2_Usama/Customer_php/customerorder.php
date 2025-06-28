@@ -77,18 +77,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         mysqli_query($conn, $updateQuery);
                     }
                     $successMessage = "Order placed! Converting total to $chosenCurrency...";
-                    // Call Python Flask API for currency conversion
+                    // Perform local currency conversion
                     $exchangeRates = ['HKD' => 7.8, 'EUR' => 0.82, 'JPY' => 110];
                     $rate = $exchangeRates[$chosenCurrency];
-                    $url = "http://127.0.0.1:8080/cost_convert/$orderCost/$chosenCurrency/$rate";
-                    $response = file_get_contents($url);
-                    $data = json_decode($response, true);
-                    if ($data['result'] == 'accepted') {
-                        $totalPrice = $data['converted_amount'];
-                        $successMessage .= " Total: " . number_format($totalPrice, 2) . " $chosenCurrency";
-                    } else {
-                        $successMessage .= " Conversion failed: " . $data['reason'];
-                    }
+                    $totalPrice = $orderCost * $rate;
+                    $successMessage .= " Total: " . number_format($totalPrice, 2) . " $chosenCurrency";
                 } else {
                     $errorMessage = "Problem placing order!";
                 }
@@ -121,7 +114,7 @@ echo <<<HTML
 <html>
 <head>
     <title>Place Order</title>
-    <script src="../Customer_php/customerorder.js" defer></script> <!-- Corrected path -->
+    <script src="customerorder.js" defer></script> <!-- Corrected path -->
     <link rel="stylesheet" href="../Customer_css/customerOrder.css">
 </head>
 <body>
@@ -129,7 +122,7 @@ echo <<<HTML
     <a href="customerDashboard.php">Home</a>
     <a href="customerOrder.php">Order</a>
     <a href="customerVieworder.php">Order Record</a>
-    <a href="updateProfile.php">Information</a>
+    <a href="updateProfile.php">Update Profile</a>
     <a href="customerDelete.php">Delete Order</a>
     <a href="../php/logout.php">Logout</a>
 </div>
