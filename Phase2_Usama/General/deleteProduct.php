@@ -43,8 +43,8 @@ $products = mysqli_query($conn, "SELECT * FROM product");
     <a href="staffDashboard.php">Staff Dashboard</a>
     <a href="reports.php">Generate Report</a>
     <a href="updateOrder.php">Update Order Records</a>
-    <a href="insertMaterials.php">Insert Materials’ Information</a>
-    <a href="insertProducts.php">Insert Products’ Information</a>
+    <a href="insertMaterials.php">Insert Materials</a>
+    <a href="insertProducts.php">Insert Products</a>
     <a href="login.php">Logout</a>
   </div>
 

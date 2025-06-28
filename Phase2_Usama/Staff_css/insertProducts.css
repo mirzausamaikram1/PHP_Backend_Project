@@ -32,7 +32,7 @@ h1 {
 }
 
 form {
-  max-width: 400px;
+  max-width: 450px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f9f9f9;
@@ -51,6 +51,16 @@ input, select {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px; /* Increased padding for better usability */
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  height: 150px; /* Increased height for a bigger description box */
+  resize: vertical; /* Allows vertical resizing by the user */
 }
 
 button {
@@ -77,3 +87,10 @@ button:hover {
   text-align: center;
   margin-bottom: 10px;
 }
+.content { padding: 20px; }
+.error { color: red; text-align: center; margin-bottom: 10px; }
+.success { color: green; text-align: center; margin-bottom: 10px; }
+.material-row { margin: 10px 0; }
+#imagePreview { max-width: 200px; max-height: 200px; margin-top: 10px; }
+textarea#pdesc { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; height: 150px; resize: none; }
+form { max-width: 500px; } /* Increased form width to contain description box */
