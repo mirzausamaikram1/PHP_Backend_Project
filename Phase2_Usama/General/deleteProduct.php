@@ -21,11 +21,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $orders_result = mysqli_query($conn, $check_orders);
 
         if (mysqli_num_rows($orders_result) == 0) {
-            $delete_sql = "DELETE FROM product WHERE pid = '$pid'";
-            if (mysqli_query($conn, $delete_sql)) {
-                $message = "Product deleted successfully!";
+            // Delete related records in prodmat table
+            $delete_prodmat = "DELETE FROM prodmat WHERE pid = '$pid'";
+            if (mysqli_query($conn, $delete_prodmat)) {
+                // Delete the product from the product table
+                $delete_sql = "DELETE FROM product WHERE pid = '$pid'";
+                if (mysqli_query($conn, $delete_sql)) {
+                    $message = "Product deleted successfully!";
+                } else {
+                    $error = "Error deleting product: " . mysqli_error($conn);
+                }
             } else {
-                $error = "Error deleting product: " . mysqli_error($conn);
+                $error = "Error deleting related materials: " . mysqli_error($conn);
             }
         } else {
             $error = "Cannot delete product with existing orders!";
@@ -68,8 +75,8 @@ $products = mysqli_query($conn, "SELECT * FROM product");
         <?php endif; ?>
 
         <form method="POST" action="">
-            <label for="delete_pid">Select Product to Delete:</label>
-            <select name="view_pid" id="delete_pid" required onchange="this.form.submit()">
+            <label for="view_pid">Select Product to Delete:</label>
+            <select name="view_pid" id="view_pid" required onchange="this.form.submit()">
                 <option value="">-- Select Product --</option>
                 <?php while ($product = mysqli_fetch_assoc($products)): ?>
                     <option value="<?php echo htmlspecialchars($product['pid']); ?>">
@@ -84,9 +91,11 @@ $products = mysqli_query($conn, "SELECT * FROM product");
             <p><strong>Product ID:</strong> <?php echo htmlspecialchars($product_details['pid']); ?></p>
             <p><strong>Product Name:</strong> <?php echo htmlspecialchars($product_details['pname']); ?></p>
             <p><strong>Product Price:</strong> <?php echo htmlspecialchars($product_details['pcost']); ?></p>
-            <p><strong>Product Description:</strong> <?php echo htmlspecialchars($product_details['description']); ?></p>
+            <p><strong>Product Description:</strong>
+                <?php echo isset($product_details['description']) ? htmlspecialchars($product_details['description']) : 'No description available'; ?>
+            </p>
 
-            <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this product?');">
+            <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this product? This action cannot be undone.');">
                 <input type="hidden" name="delete_pid" value="<?php echo htmlspecialchars($product_details['pid']); ?>">
                 <button type="submit">Delete Product</button>
             </form>
