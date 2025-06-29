@@ -80,7 +80,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <body>
     <div class="sidebar">
         <a href="staffDashboard.php">Staff Dashboard</a>
-        <a href="insertProducts.php">Insert Products</a>
+        <a href="deleteProduct.php">Delete Product</a>
+        <a href="reports.php">Generate Report</a>
+        <a href="updateOrder.php">Update Order Records</a>
+        <a href="insertProducts.php">Insert Product</a>
         <a href="login.php">Logout</a>
     </div>
     <div class="content">

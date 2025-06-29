@@ -17,11 +17,11 @@ if (!isset($_SESSION['sid']) || $_SESSION['role'] !== 'staff') {
   </head>
   <body>
   <div class="sidebar">
-    <a href="insertProducts.php">Insert Products’ Information</a>
+    <a href="insertProducts.php">Insert Products</a>
     <a href="updateOrder.php">Update Order Records</a>
-    <a href="generateReport.php">Generate Report</a>
+    <a href="reports.php">Generate Report</a>
     <a href="deleteProduct.php">Delete Product</a>
-    <a href="insertMaterials.php">Insert Materials’ Information</a>
+    <a href="insertMaterials.php">Insert Materials</a>
     <a href="../General/login.php">Logout</a>
   </div>
 
