@@ -40,8 +40,8 @@ $reports = mysqli_query($conn, $sql);
     <a href="../General/staffDashboard.php">Staff Dashboard</a>
     <a href="../General/deleteProduct.php">Delete Product</a>
     <a href="updateOrder.php">Update Order Records</a>
-    <a href="insertMaterials.php">Insert Materials’ Information</a>
-    <a href="insertProducts.php">Insert Products’ Information</a>
+    <a href="insertMaterials.php">Insert Materials</a>
+    <a href="insertProducts.php">Insert Products</a>
     <a href="login.php">Logout</a>
   </div>
 
