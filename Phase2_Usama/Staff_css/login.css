@@ -1,3 +1,4 @@
+/* Existing styles remain unchanged */
 .content {
   max-width: 400px;
   margin: 50px auto;
@@ -53,4 +54,59 @@ button:hover {
   color: green;
   text-align: center;
   margin-bottom: 10px;
+}
+
+/* Enhanced styling for radio buttons and their labels */
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Consistent horizontal spacing */
+  margin-bottom: 15px; /* Space before the button */
+}
+
+input[type="radio"] {
+  appearance: none; /* Remove default styling */
+  width: 18px;
+  height: 18px;
+  border: 2px solid #007bff; /* Blue border for a modern look */
+  border-radius: 50%; /* Circular shape */
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  transition: border-color 0.3s; /* Smooth transition for hover */
+}
+
+input[type="radio"]:checked {
+  border-color: #0056b3; /* Darker blue when checked */
+}
+
+input[type="radio"]:checked::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #007bff; /* Blue dot when checked */
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="radio"]:hover {
+  border-color: #0056b3; /* Darker blue on hover */
+}
+
+label[for="customer"],
+label[for="staff"] {
+  font-weight: 500; /* Slightly bold for readability */
+  color: #333;
+  cursor: pointer;
+  font-size: 16px; /* Larger text for better visibility */
+  transition: color 0.3s; /* Smooth transition for hover */
+}
+
+input[type="radio"]:hover + label,
+input[type="radio"]:checked + label {
+  color: #0056b3; /* Darker blue for hover and checked state */
 }
