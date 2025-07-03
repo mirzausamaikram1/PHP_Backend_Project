@@ -2,35 +2,40 @@ from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route('/cost_convert/<amount>/<currency>/<rate>')
+# Route for converting amount to another currency using a given rate
+@app.route('/cost_convert/<float:amount>/<string:currency>/<float:rate>')
 def convert_cost(amount, currency, rate):
-    # Step 1: Try to convert amount and rate to numbers
-    try:
-        amount = float(amount)
-        rate = float(rate)
-    except ValueError:
-        return jsonify({"result": "rejected", "reason": "Amount and Rate must be numbers"})
-
-    # Step 2: Check if amount and rate are positive
-    if amount <= 0:
-        return jsonify({"result": "rejected", "reason": "Amount must be a positive number"})
-    if rate <= 0:
-        return jsonify({"result": "rejected", "reason": "Rate must be a positive number"})
-
-    # Step 3: Check if currency is allowed
+    # Step 1: Ensure currency is allowed
     allowed_currencies = ["HKD", "EUR", "JPY"]
     if currency not in allowed_currencies:
-        return jsonify({"result": "rejected", "reason": "Error: Currency must be 'HKD' or 'EUR' or 'JPY'"})
+        return jsonify({
+            "result": "rejected",
+            "reason": "Currency must be one of: HKD, EUR, JPY"
+        })
 
-    # Step 4: Calculate converted amount
-    converted_amount = amount * rate
+    # Step 2: Check for valid and positive values
+    if amount <= 0:
+        return jsonify({
+            "result": "rejected",
+            "reason": "Amount must be a positive number"
+        })
 
-    # Step 5: Return the result in JSON
+    if rate <= 0:
+        return jsonify({
+            "result": "rejected",
+            "reason": "Rate must be a positive number"
+        })
+
+    # Step 3: Calculate converted amount
+    converted_amount = round(amount * rate, 2)
+
+    # Step 4: Return the result
     return jsonify({
         "result": "accepted",
-        "converted_amount": converted_amount
+        "converted_amount": converted_amount,
+        "currency": currency
     })
 
-# Run the Flask app
+# Run the app on localhost:8080
 if __name__ == "__main__":
     app.run(debug=True, host="127.0.0.1", port=8080)
