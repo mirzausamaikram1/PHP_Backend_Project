@@ -2,6 +2,8 @@
 // Include the database connection file
 include '../General/db_connect.php';
 session_start(); // Start session to access user session variables
+// Set timezone to Hong Kong
+date_default_timezone_set("Asia/Hong_Kong");
 
 // Check if customer is logged in using session data
 if (!isset($_SESSION['cid']) || $_SESSION['role'] != 'customer') {
@@ -93,7 +95,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           // Call Flask API for currency conversion of order cost
           $successMessage = "Order placed! Converting total to $chosenCurrency...";
           $flaskURL = "http://127.0.0.1:8080/cost_convert/$orderCost/$chosenCurrency/1"; // Pass cost, currency, and dummy rate
-          $response = file_get_contents($flaskURL); // Get API response
+          $response = @file_get_contents($flaskURL); // @ hides PHP warning
+
+          if ($response !== false) {
+            $data = json_decode($response, true);
+            if ($data['result'] == 'accepted') {
+              $convertedAmount = number_format($data['converted_amount'], 2);
+              $successMessage .= " Total: $convertedAmount $chosenCurrency (converted via Flask API)";
+            } else {
+              $successMessage .= " But currency conversion failed: " . $data['reason'];
+            }
+          } else {
+            // Show clean user message instead of raw warning
+            $successMessage .= " But currency conversion could not be completed (API not available).";
+          }
+          // Get API response
 
           if ($response !== false) {
             $data = json_decode($response, true); // Convert JSON to PHP array
@@ -150,11 +166,11 @@ echo <<<HTML
 <body>
 <div class="sidebar">
     <a href="customerDashboard.php">Home</a>
-    <a href="customerOrder.php">Order</a>
+    <a href="customerorder.php">Order</a>
     <a href="customerVieworder.php">Order Record</a>
     <a href="updateProfile.php">Update Profile</a>
     <a href="customerDelete.php">Delete Order</a>
-    <a href="../php/logout.php">Logout</a>
+    <a href="../General/logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
 </div>
 <div class="content">
     <h1>SMILE & SUNSHINE TOY CO. LTD</h1>

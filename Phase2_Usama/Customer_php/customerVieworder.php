@@ -54,11 +54,11 @@ if (!$result) {
 <body>
 <div class="sidebar">
   <a href="customerDashboard.php">Home</a>
-  <a href="customerOrder.php">Order</a>
+  <a href="customerorder.php">Order</a>
   <a href="customerVieworder.php">View Orders</a>
   <a href="updateProfile.php">Update Profile</a>
   <a href="customerDelete.php">Delete Order</a>
-  <a href="../php/logout.php">Logout</a>
+    <a href="../General/logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
 </div>
 <div class="content">
   <h2>View Your Orders</h2>

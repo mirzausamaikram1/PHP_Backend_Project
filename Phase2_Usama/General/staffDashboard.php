@@ -22,7 +22,8 @@ if (!isset($_SESSION['sid']) || $_SESSION['role'] !== 'staff') {
     <a href="reports.php">Generate Report</a>
     <a href="deleteProduct.php">Delete Product</a>
     <a href="insertMaterials.php">Insert Materials</a>
-    <a href="../General/login.php">Logout</a>
+    <a href="../General/logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+
   </div>
 
   <div class="content">

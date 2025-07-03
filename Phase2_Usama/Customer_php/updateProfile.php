@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
   <a href="customerorder.php">Make an Order</a>
   <a href="customerVieworder.php">View Order Records</a>
   <a href="customerDelete.php">Delete Order Record</a>
-  <a href="../php/logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
+  <a href="../General/logout.php" onclick="return confirm('Are you sure you want to logout?');">Logout</a>
 </div>
 <div class="content">
   <h2>Update Profile</h2>
