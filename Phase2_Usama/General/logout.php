@@ -1,31 +1,28 @@
 <?php
-session_start(); // Start the session to access it
+// Start session to access session variables
+session_start();
 
-// Clear all session data
-$_SESSION = array(); // Remove all session variables
-session_destroy(); // End the session
+// Clear all session variables
+$_SESSION = array();
 
-// Clear the session cookie (like a tag that remembers you)
+// Destroy the session completely
+session_destroy();
+
+// If session cookie is used, remove it by setting its expiration in the past
 if (ini_get("session.use_cookies")) {
-    $params = session_get_cookie_params();
-    setcookie(
-        session_name(), // Name of the session cookie
-        '', // Set it to empty
-        time() - 42000, // Make it expire in the past
-        $params["path"],
-        $params["domain"],
-        $params["secure"],
-        $params["httponly"]
-    );
+  $params = session_get_cookie_params();
+  setcookie(session_name(), '', time() - 42000,
+      $params["path"], $params["domain"],
+      $params["secure"], $params["httponly"]
+  );
 }
 
-// Tell the browser not to save this page
+// Prevent browser from caching the logout page
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");
 header("Expires: Thu, 01 Jan 1970 00:00:00 GMT");
 
-// Send the user to the login page
+// Redirect the user to the login page after logout
 header("Location: ../General/login.php");
-exit; // Stop the script
+exit;
 ?>
